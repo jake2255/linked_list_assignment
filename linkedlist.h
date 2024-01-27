@@ -1,9 +1,18 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <iostream>
+#include <string>
+
+using namespace std;
+
 struct Node{
     Node* next;
-    int data;
+    string mTitle;
+    string mId;
+    string mGenre;
+    int mYear;
+    float mRating;
 };
 
 class Linkedlist{
@@ -13,12 +22,12 @@ class Linkedlist{
     public:
         Linkedlist();
         ~Linkedlist();
-        void InsertNode(int value);
-        void DeleteNode();
+        void InsertNode(string title, string id, string genre, int year, float rating);
+        void DeleteNode(string movieDelete);
         void DisplayList();
-        void SearchNode();
         void ReverseList();
         void FindMidNode();
+        void SearchNode();
 };
 
 #endif
