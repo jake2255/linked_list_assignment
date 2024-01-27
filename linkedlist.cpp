@@ -1,7 +1,4 @@
 #include "linkedlist.h"
-#include <iostream>
-
-using namespace std;
 
 //constructor
 Linkedlist::Linkedlist(){
@@ -20,9 +17,14 @@ Linkedlist::~Linkedlist(){
 }
 
 //insert new node to end of linked list
-void Linkedlist::InsertNode(int value){
+void Linkedlist::InsertNode(string title, string id, string genre, int year, float rating){
     Node* newNode = new Node;
-    newNode->data = value;
+    newNode->mTitle = title;
+    newNode->mId = id;
+    newNode->mGenre = genre;
+    newNode->mYear = year;
+    newNode->mRating = rating;
+
     if(head == nullptr){
         head = newNode;
         tail = newNode;
@@ -34,23 +36,48 @@ void Linkedlist::InsertNode(int value){
 }
 
 //delete node at the head of list
-void Linkedlist::DeleteNode(){
-    if(head != nullptr){
+void Linkedlist::DeleteNode(string movieDelete){
+    if(head == nullptr){
+        cout << "List empty." << endl;
+        return;
+    }
+    
+    Node* temp = head;
+    bool movieExist = false;
+    while(temp && !movieExist){
+        if(temp->mTitle == movieDelete){
+            movieExist = true;
+        }
+        else{
+            temp = temp->next;
+        }
+    }
+
+    if(temp == head){
         head = head->next;
     }
+    else if(temp == tail){
+
+    }
+    else{
+        
+    }
+    
 }
 
 //display all elements in linked list
 void Linkedlist::DisplayList(){
     Node* temp = head;
-    cout << "list elements: " << endl;
+    int counter = 1;
+
+    cout << "Movie List: " << endl;
     while(temp){
-        cout << temp->data << "->";
+        cout << "Movie #" << counter << ": " << temp->mTitle << endl;
         temp = temp->next;
+        counter++;
     }
-    cout << endl;
 }
 
-void Linkedlist::SearchNode(){}
 void Linkedlist::ReverseList(){}
 void Linkedlist::FindMidNode(){}
+void Linkedlist::SearchNode(){}
