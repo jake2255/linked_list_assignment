@@ -42,27 +42,36 @@ void Linkedlist::DeleteNode(string movieDelete){
         return;
     }
     
-    Node* temp = head;
+    Node* current = head;
+    Node* previous = nullptr;
     bool movieExist = false;
-    while(temp && !movieExist){
-        if(temp->mTitle == movieDelete){
+
+    while(current && !movieExist){
+        if(current->mTitle == movieDelete){
             movieExist = true;
         }
         else{
-            temp = temp->next;
+            previous = current;
+            current = current->next;
         }
     }
 
-    if(temp == head){
-        head = head->next;
+    if(!movieExist){
+        cout << "Movie doesnt exist." << endl;
     }
-    else if(temp == tail){
-
+    else if(current == head){
+        head = nullptr;
+        tail = nullptr;
+    }
+    else if(current == tail){
+        previous->next = nullptr;
+        tail = previous;
     }
     else{
-        
+        previous->next = current->next;
     }
-    
+    //free(current);
+    //free(previous);
 }
 
 //display all elements in linked list
