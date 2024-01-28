@@ -27,7 +27,8 @@ class Linkedlist{
         void DisplayList();
         void ReverseList();
         void FindMidNode();
-        void SearchNode();
+        void SearchNode(string movieSearch);
+        void DisplaySingleNode(int location);
 };
 
 #endif
