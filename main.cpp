@@ -10,7 +10,7 @@ int main(){
 
     cout <<"****MOVIE DATABASE****"<< endl;
     do{
-        cout << "Add movie[1], delete movie [2], display movie list [3], or quit [4]: ";
+        cout << "Add movie[1], delete movie [2], display movie list [3], find middle movie [4], search movie [5], reverse list [6] or quit [0]: ";
         cin >> option;
 
         if(option == 1){
@@ -37,8 +37,21 @@ int main(){
         else if(option == 3){
             list.DisplayList();
         }
-        
-    }while(option != 4);
+        else if(option == 4){
+            cout << "Movie in middle of list.";
+            list.FindMidNode();
+        }
+        else if(option == 5){
+            string movieToFind;
+            cout << "Enter the title or ID of movie: ";
+            cin >> movieToFind;
+            list.SearchNode(movieToFind);
+        }
+        else if(option == 6){
+            list.ReverseList();
+            list.DisplayList();
+        }
+    }while(option != 0);
 
     return 0;
 }
