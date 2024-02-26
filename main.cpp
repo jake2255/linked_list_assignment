@@ -1,68 +1,65 @@
 #include "linkedlist.h"
+#include "binarytree.h"
 
 int main(){
 
-    Linkedlist list;    //linked list object
-    int option = 0; //menu selection
-    string title, id, genre; //user info for movie
-    int year;
-    float rating;
+    Linkedlist list;  //linked list object
+    Binarytree tree;  //binary tree object
+    int option = 0;   //menu selection
+    std::string name, address, dob, id; //student variables
 
-    cout <<"****MOVIE DATABASE****"<< endl;
+    std::cout <<"****STUDENT DATABASE****"<< std::endl;
     do{
-        cout << BLUE_TEXT << "Add movie [1]" << endl;
-        cout << "Delete movie [2]" << endl;
-        cout << "Display movie list [3]" << endl;
-        cout << "Find middle movie [4]" << endl;
-        cout << "Search movie [5]" << endl;
-        cout << "Reverse list [6]" << endl;
-        cout << "Quit program [0]" << WHITE_TEXT << endl;
-        cin >> option;
+        std::cout << BLUE_TEXT << "Add student [1]" << std::endl;
+        std::cout << "Delete student [2]" << std::endl;
+        std::cout << "Search student [3]" << std::endl;
+        std::cout << "Update student [4]" << std::endl;
+        std::cout << "Display student [5]" << std::endl;
+        std::cout << "Quit program [0]" << WHITE_TEXT << std::endl;
+        std::cin >> option;
         system("clear");
 
-        //options to modify the movie database
+        //add student
         if(option == 1){
-            cout << "Movie title: ";
-            cin.ignore();
-            getline(cin, title);
-            cout << "Movie ID: ";
-            getline(cin, id);
-            cout << "Movie genre: ";
-            getline(cin, genre);
-            cout << "Movie release year: ";
-            cin >> year;
-            cout << "Movie rating [1-10]: ";
-            cin >> rating;
-            list.InsertNode(title, id, genre, year, rating);
+            std::cout << "Student name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Student address: ";
+            std::getline(std::cin, address);
+            std::cout << "Student date of birth: ";
+            std::getline(std::cin, dob);
+            std::cout << "Student ID: ";
+            std::getline(std::cin, id);
+
+            list.InsertNode(name, address, dob, id);
+            //tree.InsertNode(name, address, dob, id);
             system("clear");
         }
         else if(option == 2){
-            string movieDelete;
-            cout << "Title of movie to delete: ";
-            cin.ignore();
-            getline(cin, movieDelete);
-            list.DeleteNode(movieDelete);
+            std::string studentToDelete;
+            std::cout << "Name/ID of student to delete: ";
+            std::cin.ignore();
+            std::getline(std::cin, studentToDelete);
+            list.DeleteNode(studentToDelete);
+            //tree.DeleteNode(studentToDelete);
         }
         else if(option == 3){
-            list.DisplayList();
+            std::string studentToFind;
+            std::cout << "Name/ID of student to search: ";
+            std::cin.ignore();
+            std::getline(std::cin, studentToFind);
+            list.SearchNode(studentToFind);
+            //tree.SearchNode(studentToFind);
         }
-        else if(option == 4){
-            list.FindMidNode();
-        }
+        else if(option == 4){}
         else if(option == 5){
-            string movieToFind;
-            cout << "Enter the title or ID of movie: ";
-            cin >> movieToFind;
-            list.SearchNode(movieToFind);
-        }
-        else if(option == 6){
-            list.ReverseList();
             list.DisplayList();
+            //tree.DisplayList();
         }
-
+        
     }while(option != 0);
 
-    cout << "have a nice day";
+    std::cout << "have a nice day";
 
     return 0;
 }
