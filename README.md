@@ -1,2 +1,3 @@
-# linked_list_assignment
-This project implements a singly linked list into a basic movie data base that can perform various functions. This program is coded in c++ and has no GUI, so it needs to be compiled and executed. To compile this program, use the "g++ *.cpp" command.
+# student database
+This program implements a singly linked list and a binary tree into a student database that stores student information and can perform various different functions. Also compares the difference it takes to traverse and find information between the linked list and binary tree.
+
