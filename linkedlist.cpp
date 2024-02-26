@@ -17,18 +17,11 @@ Linkedlist::~Linkedlist(){
 }
 
 //insert new node to end of linked list
-void Linkedlist::InsertNode(string title, string id, string genre, int year, float rating){
+void Linkedlist::InsertNode(std::string name, std::string address, std::string dob, std::string id){
     //initializes new node with user info
-    Node* newNode = new Node;
-    newNode->mTitle = title;
-    newNode->mId = id;
-    newNode->mGenre = genre;
-    newNode->mYear = year;
-    newNode->mRating = rating;
-    newNode->next = nullptr;
-
+    Node* newNode = new Node(name, address, dob, id);
     //if list is empty set head/tail to new node, else append new node to tail
-    if(head == nullptr && tail == nullptr){
+    if(head == nullptr){
         head = newNode;
         tail = newNode;
     }
@@ -39,153 +32,98 @@ void Linkedlist::InsertNode(string title, string id, string genre, int year, flo
 }
 
 //delete node selected by user
-void Linkedlist::DeleteNode(string movieDelete){
+void Linkedlist::DeleteNode(std::string studentToDelete){
     if(head == nullptr){
-        cout << RED_TEXT << "List empty." << WHITE_TEXT << endl;
+        std::cout << RED_TEXT << "List empty." << WHITE_TEXT << std::endl;
         return;
     }
-    
+
     Node* current = head;
     Node* previous = nullptr;
-    bool movieExist = false;
+    bool studentExist = false;
 
-    //iterate through list until movie is found or end of list
-    while(current && !movieExist){
-        if(current->mTitle == movieDelete){
-            movieExist = true;
-        }
+    //iterate through list until student is found or end of list
+    while(current && !studentExist){
+        if(current->s_name == studentToDelete || current->s_id == studentToDelete)
+            studentExist = true;
         else{
             previous = current;
             current = current->next;
         }
     }
+    if(!studentExist)
+        std::cout << RED_TEXT << "Student doesnt exist." << WHITE_TEXT << std::endl;
 
-    if(!movieExist){
-        cout << RED_TEXT << "Movie doesnt exist." << WHITE_TEXT << endl;
-    }
-    //deletes selected movie when its head of list
+    //deletes selected student when its head of list
     else if(current == head){
         if(head->next == nullptr){ 
             head = nullptr;
             tail = nullptr;
             current = nullptr;
         }
-        else{
+        else
             head = head->next;
-        }
     }
-    //deletes selected movie when its tail of list
+    //deletes selected student when its tail of list
     else if(current == tail){ 
         previous->next = nullptr;
         tail = previous;
     }
-    //deletes selected movie when its in middle of list
-    else{
+    //deletes selected student when its in middle of list
+    else
         previous->next = current->next;
+}
+
+//finds and displays a selected node
+void Linkedlist::SearchNode(std::string studentToFind){
+    if(head == nullptr){
+        std::cout << RED_TEXT << "List empty." << WHITE_TEXT << std::endl;
+        return;
+    } 
+
+    Node* temp = head;
+    bool studentExist = false;
+    int counter = 1;
+
+    //iterates through list until student name/id is found
+    while(temp && !studentExist){
+        if(temp->s_name == studentToFind || temp->s_id == studentToFind)
+            studentExist = true;
+        else{
+            temp = temp->next;
+            counter++;
+        }
     }
+    if(studentExist){
+        std::cout << GREEN_TEXT << "Student #" << counter << " in list:" << WHITE_TEXT << std::endl;
+        std::cout << "Name: " << temp->s_name << std::endl;
+        std::cout << "Address: " << temp->s_address << std::endl;
+        std::cout << "Date of Birth: " << temp->s_dob << std::endl;
+        std::cout << "ID: " << temp->s_id << std::endl;
+    }
+    else
+        std::cout << RED_TEXT << "Student not found." << WHITE_TEXT << std::endl;
+}
+
+void Linkedlist::UpdateNode(){
+
 }
 
 //display all elements in linked list
 void Linkedlist::DisplayList(){
     if(head == nullptr){
-         cout << RED_TEXT << "List empty." << WHITE_TEXT << endl;
+        std::cout << RED_TEXT << "List empty." << WHITE_TEXT << std::endl;
         return;
     }
 
     Node* temp = head;
     int counter = 1;
 
-    //iterates through list displaying movie titles
-    cout << "Movie List: " << endl;
+    //iterates through list displaying student names
+    std::cout << "Student List: " << std::endl;
     while(temp){
-        cout << GREEN_TEXT << "Movie #" << counter << WHITE_TEXT << ": " << temp->mTitle << endl;
+        std::cout << GREEN_TEXT << "Student #" << counter << WHITE_TEXT << ": " << temp->s_name << std::endl;
         temp = temp->next;
         counter++;
     }
-}
-
-//reverses the linked list
-void Linkedlist::ReverseList(){
-    if(head == nullptr){
-        cout << RED_TEXT << "List empty." << WHITE_TEXT << endl;
-        return;
-    }   
-
-    Node* current = head;
-    Node* previous = nullptr;
-    Node* next = nullptr;
-    tail = head;
-
-    //iterates through list and switches next pointer of current from next to previous
-    while(current != nullptr){
-        next = current->next;
-        current->next = previous;
-        previous = current;
-        current = next;
-    }
-    head = previous;
-}
-
-//finds the middle element in the linked list
-void Linkedlist::FindMidNode(){
-    if(head == nullptr){
-        cout << RED_TEXT << "List empty." << WHITE_TEXT << endl;
-        return;
-    }
-
-    Node* temp = head;
-    int counter = 1;
-
-    //finds amount of list elements and divides by 2
-    while(temp){
-        temp = temp->next;
-        counter++;
-    }
-    int midNode = counter / 2;
-    DisplaySingleNode(midNode);
-}
-
-//finds and displays a selected node
-void Linkedlist::SearchNode(string movieSearch){
-    if(head == nullptr){
-        cout << RED_TEXT << "List empty." << WHITE_TEXT << endl;
-        return;
-    }
-
-    Node* temp = head;
-    bool found = false;
-    int counter = 1;
-
-    //iterates through list until user movie name/id if found
-    while(temp && !found){
-        if(temp->mTitle == movieSearch || temp->mId == movieSearch){
-            found = true;
-        }
-        temp = temp->next;
-        counter++;
-    }
-
-    if(found){
-        DisplaySingleNode(counter-1);
-    }
-    else{
-        cout << RED_TEXT << "Movie not found." << WHITE_TEXT << endl;
-    }
-}
-
-//displays all the info from a selected node
-void Linkedlist::DisplaySingleNode(int location){
-    Node* temp = head;
-    int counter = 1;
-    while(location != counter){
-        temp = temp->next;
-        counter++;
-    }
-
-    cout << GREEN_TEXT << "Movie #" << counter << " in list:" << WHITE_TEXT << endl;
-    cout << "Title: " << temp->mTitle << endl;
-    cout << "ID: " << temp->mId << endl;
-    cout << "Genre: " << temp->mGenre << endl;
-    cout << "Release Year: " << temp->mYear << endl;
-    cout << "Rating: " << temp->mRating << endl;
 }
