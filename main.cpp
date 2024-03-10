@@ -4,9 +4,43 @@
 int main(){
 
     Linkedlist list;  //linked list object
-    Binarytree tree;  //binary tree object
+    //Binarytree tree;  //binary tree object
     int option = 0;   //menu selection
-    std::string name, address, dob, id; //student variables
+    std::string name, street, city, state, zip, dob, id; //student variables
+
+    // inserting info from file into data structure
+    std::ifstream input("student_info1.csv");
+    std::string line;
+
+    if(!input.is_open()){
+        std::cout << "Error: File not found.\n";
+        return 0;
+    }
+
+    while(std::getline(input, line)){
+		std::istringstream ss(line);
+		std::string token;
+		std::vector<std::string> tokens;
+
+		while(std::getline(ss, token, ','))
+			tokens.push_back(token);
+
+        if(tokens.size() >= 7){
+            name = tokens[0];
+            street = tokens[1];
+            city = tokens[2];
+            state = tokens[3];
+            zip = tokens[4];
+            dob = tokens[5];
+            id = tokens[6];
+
+            list.InsertNode(name, street, city, state, zip, dob, id);
+        }
+        else  
+            std::cout << "Error: Malformed line in file.\n";
+    }
+
+    input.close();
 
     std::cout <<"****STUDENT DATABASE****"<< std::endl;
     do{
@@ -15,7 +49,8 @@ int main(){
         std::cout << "Search student [3]" << std::endl;
         std::cout << "Update student [4]" << std::endl;
         std::cout << "Display student [5]" << std::endl;
-        std::cout << "Quit program [0]" << WHITE_TEXT << std::endl;
+        std::cout << "Quit program [0]" << std::endl;
+        std::cout << "->" << WHITE_TEXT;
         std::cin >> option;
         system("clear");
 
@@ -24,14 +59,20 @@ int main(){
             std::cout << "Student name: ";
             std::cin.ignore();
             std::getline(std::cin, name);
-            std::cout << "Student address: ";
-            std::getline(std::cin, address);
+            std::cout << "Student street: ";
+            std::getline(std::cin, street);
+            std::cout << "Student city: ";
+            std::getline(std::cin, city);
+            std::cout << "Student state: ";
+            std::getline(std::cin, state);
+            std::cout << "Student zipcode: ";
+            std::getline(std::cin, zip);
             std::cout << "Student date of birth: ";
             std::getline(std::cin, dob);
             std::cout << "Student ID: ";
             std::getline(std::cin, id);
 
-            list.InsertNode(name, address, dob, id);
+            list.InsertNode(name, street, city, state, zip, dob, id);
             //tree.InsertNode(name, address, dob, id);
             system("clear");
         }
@@ -51,7 +92,29 @@ int main(){
             list.SearchNode(studentToFind);
             //tree.SearchNode(studentToFind);
         }
-        else if(option == 4){}
+        else if(option == 4){
+            std::string studentToUpdate;
+            std::cout << "Name/ID of student to update: ";
+            std::cin.ignore();
+            std::getline(std::cin, studentToUpdate);
+            list.SearchNode(studentToUpdate);
+            
+            std::cout << "Updated student name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Updated student street: ";
+            std::getline(std::cin, street);
+            std::cout << "Updated student city: ";
+            std::getline(std::cin, city);
+            std::cout << "Updated student state: ";
+            std::getline(std::cin, state);
+            std::cout << "Updated student zipcode: ";
+            std::getline(std::cin, zip);
+            std::cout << "Updated student date of birth: ";
+            std::getline(std::cin, dob);
+            list.UpdateNode(studentToUpdate, name, street, city, state, zip, dob);
+            //tree.SearchNode(studentToFind);
+        }
         else if(option == 5){
             list.DisplayList();
             //tree.DisplayList();
@@ -59,7 +122,7 @@ int main(){
         
     }while(option != 0);
 
-    std::cout << "have a nice day";
+    std::cout << "have a nice day" << std::endl;
 
     return 0;
 }
