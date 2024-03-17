@@ -17,7 +17,7 @@ Linkedlist::~Linkedlist(){
 }
 
 //insert new node to end of linked list
-void Linkedlist::InsertNode(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, std::string id){
+void Linkedlist::InsertNode(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id){
     //initializes new node with user info
     Node* newNode = new Node(name, street, city, state, zip, dob, id);
     //if list is empty set head/tail to new node, else append new node to tail
@@ -44,13 +44,15 @@ void Linkedlist::DeleteNode(std::string studentToDelete){
 
     //iterate through list until student is found or end of list
     while(current && !studentExist){
-        if(current->s_name == studentToDelete || current->s_id == studentToDelete)
+        std::string studentId = std::to_string(current->s_id);
+        if(current->s_name == studentToDelete || studentId == studentToDelete)
             studentExist = true;
         else{
             previous = current;
             current = current->next;
         }
     }
+
     if(!studentExist)
         std::cout << RED_TEXT << "Student doesnt exist." << WHITE_TEXT << std::endl;
 
@@ -75,28 +77,27 @@ void Linkedlist::DeleteNode(std::string studentToDelete){
 }
 
 //finds and displays a selected node
-void Linkedlist::SearchNode(std::string studentToFind){
+bool Linkedlist::SearchNode(std::string studentToFind){
     if(head == nullptr){
         std::cout << RED_TEXT << "List empty." << WHITE_TEXT << std::endl;
-        return;
+        return false;
     } 
 
     Node* temp = head;
     bool studentExist = false;
-    int counter = 1;
 
     //iterates through list until student name/id is found
     while(temp && !studentExist){
-        if(temp->s_name == studentToFind || temp->s_id == studentToFind)
+        std::string studentId = std::to_string(temp->s_id);
+        if(temp->s_name == studentToFind || studentId == studentToFind)
             studentExist = true;
         else{
             temp = temp->next;
-            counter++;
         }
     }
 
     if(studentExist){
-        std::cout << GREEN_TEXT << "Student #" << counter << " in list:" << WHITE_TEXT << std::endl;
+        std::cout << GREEN_TEXT << "Student in list:" << WHITE_TEXT << std::endl;
         std::cout << "Name: " << temp->s_name << std::endl;
         std::cout << "Street: " << temp->s_street << std::endl;
         std::cout << "City: " << temp->s_city << std::endl;
@@ -104,9 +105,11 @@ void Linkedlist::SearchNode(std::string studentToFind){
         std::cout << "Zipcode: " << temp->s_zipcode << std::endl;
         std::cout << "Date of Birth: " << temp->s_dob << std::endl;
         std::cout << "ID: " << temp->s_id << std::endl;
+        return true;
     }
     else
         std::cout << RED_TEXT << "Student not found." << WHITE_TEXT << std::endl;
+        return false;
 }
 
 //finds and updates a selected node
@@ -118,17 +121,17 @@ void Linkedlist::UpdateNode(std::string studentToUpdate, std::string name, std::
 
     Node* temp = head;
     bool studentExist = false;
-    int counter = 1;
 
     //iterates through list until student name/id is found
     while(temp && !studentExist){
-        if(temp->s_name == studentToUpdate || temp->s_id == studentToUpdate)
+        std::string studentId = std::to_string(temp->s_id);
+        if(temp->s_name == studentToUpdate || studentId == studentToUpdate)
             studentExist = true;
         else{
             temp = temp->next;
-            counter++;
         }
     }
+    
     if(studentExist){
        temp->s_name = name;
        temp->s_street = street;
@@ -149,11 +152,10 @@ void Linkedlist::DisplayList(){
     }
 
     Node* temp = head;
-
     //iterates through list displaying student names
     std::cout << "Student List: " << std::endl;
     while(temp){
-        std::cout << GREEN_TEXT << "Student, ID->" << WHITE_TEXT << temp->s_name << ", " << temp->s_id << std::endl;
+        std::cout << GREEN_TEXT << "Student|ID->" << WHITE_TEXT << temp->s_name << "|" << temp->s_id << std::endl;
         temp = temp->next;
     }
 }
