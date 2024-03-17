@@ -9,28 +9,40 @@
 #define GREEN_TEXT "\x1b[32m"
 #define RED_TEXT "\x1b[31m"
 
-// //struct that stores all the elements in each node
-// struct Node{
-//     Node* next;
-//     std::string s_name;
-//     std::string s_address;
-//     std::string s_dob;
-//     std::string s_id;
-//     Node(std::string n, std::string a, std::string d, std::string i): s_name(n), s_address(a), s_dob(d), s_id(i){}
-// };
+//struct that stores all the elements in each node
+struct TreeNode{
+    TreeNode* left;
+    TreeNode* right;
+    std::string s_name;
+    std::string s_street;
+    std::string s_city;
+    std::string s_state;
+    std::string s_zipcode;
+    std::string s_dob;
+    int s_id;
+
+    TreeNode(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id): 
+        s_name(name), s_street(street), s_city(city), s_state(state), s_zipcode(zip), s_dob(dob), s_id(id){}
+};
 
 class Binarytree{
     private:
-        // Node* left;
-        // Node* right;
+        TreeNode* root;
+        // helper functions
+        void InsertHelper(TreeNode*& node, std::string, std::string, std::string, std::string, std::string, std::string, int);
+        TreeNode* DeleteHelper(TreeNode* node, std::string, std::string, std::string, std::string, std::string, std::string, int);
+        void InOrderTraversalHelper(TreeNode* node);
+        void PreOrderTraversalHelper(TreeNode* node);
+        void PostOrderTraversalHelper(TreeNode* node);
+
     public:
         Binarytree();
         ~Binarytree();
-        void InsertNode(std::string, std::string, std::string, std::string);
+        void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, int);
         void DeleteNode(std::string);
-        void SearchNode(std::string);
-        void UpdateNode();
-        void DisplayTree();    
+        bool SearchNode(std::string);
+        void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
+        void DisplayTree();      
 };
 
 #endif
