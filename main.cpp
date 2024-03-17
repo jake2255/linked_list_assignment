@@ -6,7 +6,8 @@ int main(){
     Linkedlist list;  //linked list object
     //Binarytree tree;  //binary tree object
     int option = 0;   //menu selection
-    std::string name, street, city, state, zip, dob, id; //student variables
+    std::string name, street, city, state, zip, dob; //student variables
+    int id;
 
     // inserting info from file into data structure
     std::ifstream input("student_info1.csv");
@@ -19,21 +20,21 @@ int main(){
 
     while(std::getline(input, line)){
 		std::istringstream ss(line);
-		std::string token;
-		std::vector<std::string> tokens;
+		std::vector<std::string> student; 
+        std::string data;
 
-		while(std::getline(ss, token, ','))
-			tokens.push_back(token);
+		while(std::getline(ss, data, ','))
+			student.push_back(data);
 
-        if(tokens.size() >= 7){
-            name = tokens[0];
-            street = tokens[1];
-            city = tokens[2];
-            state = tokens[3];
-            zip = tokens[4];
-            dob = tokens[5];
-            id = tokens[6];
-
+        if(student.size() == 7){
+            name = student[0];
+            street = student[1];
+            city = student[2];
+            state = student[3];
+            zip = student[4];
+            dob = student[5];
+            id = std::stoi(student[6]);
+            //std::cout<<"'"<<name<<"'"<<street<<"'"<<city<<"'"<<state<<"'"<<zip<<"'"<<dob<<"'"<<id<<"'"<<std::endl;
             list.InsertNode(name, street, city, state, zip, dob, id);
         }
         else  
@@ -70,12 +71,13 @@ int main(){
             std::cout << "Student date of birth: ";
             std::getline(std::cin, dob);
             std::cout << "Student ID: ";
-            std::getline(std::cin, id);
+            std::cin >> id;
 
             list.InsertNode(name, street, city, state, zip, dob, id);
             //tree.InsertNode(name, address, dob, id);
             system("clear");
         }
+
         else if(option == 2){
             std::string studentToDelete;
             std::cout << "Name/ID of student to delete: ";
@@ -84,37 +86,41 @@ int main(){
             list.DeleteNode(studentToDelete);
             //tree.DeleteNode(studentToDelete);
         }
+
         else if(option == 3){
             std::string studentToFind;
             std::cout << "Name/ID of student to search: ";
             std::cin.ignore();
             std::getline(std::cin, studentToFind);
-            list.SearchNode(studentToFind);
+            bool found = list.SearchNode(studentToFind);
             //tree.SearchNode(studentToFind);
         }
+
         else if(option == 4){
             std::string studentToUpdate;
             std::cout << "Name/ID of student to update: ";
             std::cin.ignore();
             std::getline(std::cin, studentToUpdate);
-            list.SearchNode(studentToUpdate);
+            bool found = list.SearchNode(studentToUpdate);
             
-            std::cout << "Updated student name: ";
-            std::cin.ignore();
-            std::getline(std::cin, name);
-            std::cout << "Updated student street: ";
-            std::getline(std::cin, street);
-            std::cout << "Updated student city: ";
-            std::getline(std::cin, city);
-            std::cout << "Updated student state: ";
-            std::getline(std::cin, state);
-            std::cout << "Updated student zipcode: ";
-            std::getline(std::cin, zip);
-            std::cout << "Updated student date of birth: ";
-            std::getline(std::cin, dob);
-            list.UpdateNode(studentToUpdate, name, street, city, state, zip, dob);
-            //tree.SearchNode(studentToFind);
+            if(found){
+                std::cout << "Updated student name: ";
+                std::getline(std::cin, name);
+                std::cout << "Updated student street: ";
+                std::getline(std::cin, street);
+                std::cout << "Updated student city: ";
+                std::getline(std::cin, city);
+                std::cout << "Updated student state: ";
+                std::getline(std::cin, state);
+                std::cout << "Updated student zipcode: ";
+                std::getline(std::cin, zip);
+                std::cout << "Updated student date of birth: ";
+                std::getline(std::cin, dob);
+                list.UpdateNode(studentToUpdate, name, street, city, state, zip, dob);
+                //tree.SearchNode(studentToFind);
+            }
         }
+
         else if(option == 5){
             list.DisplayList();
             //tree.DisplayList();
