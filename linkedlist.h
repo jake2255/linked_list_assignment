@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cctype>
 
 #define BLUE_TEXT "\x1b[36m"
 #define WHITE_TEXT "\x1b[0m"
@@ -21,8 +22,9 @@ struct Node{
     std::string s_state;
     std::string s_zipcode;
     std::string s_dob;
-    std::string s_id;
-    Node(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, std::string id): 
+    int s_id;
+
+    Node(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id): 
         s_name(name), s_street(street), s_city(city), s_state(state), s_zipcode(zip), s_dob(dob), s_id(id){}
 };
 
@@ -34,9 +36,9 @@ class Linkedlist{
     public:
         Linkedlist();
         ~Linkedlist();
-        void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
+        void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, int);
         void DeleteNode(std::string);
-        void SearchNode(std::string);
+        bool SearchNode(std::string);
         void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
         void DisplayList();    
 };
