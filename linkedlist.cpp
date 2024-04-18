@@ -20,6 +20,7 @@ Linkedlist::~Linkedlist(){
 void Linkedlist::InsertNode(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id){
     //initializes new node with user info
     Node* newNode = new Node(name, street, city, state, zip, dob, id);
+    newNode->next = nullptr;
     //if list is empty set head/tail to new node, else append new node to tail
     if(head == nullptr){
         head = newNode;
@@ -107,9 +108,10 @@ bool Linkedlist::SearchNode(std::string studentToFind){
         std::cout << "ID: " << temp->s_id << std::endl;
         return true;
     }
-    else
+    else{
         std::cout << RED_TEXT << "Student not found." << WHITE_TEXT << std::endl;
         return false;
+    }
 }
 
 //finds and updates a selected node
