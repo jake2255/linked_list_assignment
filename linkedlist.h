@@ -16,12 +16,7 @@
 //struct that stores all the elements in each node
 struct Node{
     Node* next;
-    std::string s_name;
-    std::string s_street;
-    std::string s_city;
-    std::string s_state;
-    std::string s_zipcode;
-    std::string s_dob;
+    std::string s_name, s_street, s_city, s_state, s_zipcode, s_dob;
     int s_id;
 
     Node(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id): 
