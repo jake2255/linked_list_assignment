@@ -10,7 +10,7 @@ int main(){
     int id;
 
     // inserting info from file into data structure
-    std::ifstream input("student_info1.csv");
+    std::ifstream input("student_info2.csv");
     std::string line;
 
     if(!input.is_open()){
@@ -34,8 +34,8 @@ int main(){
             zip = student[4];
             dob = student[5];
             id = std::stoi(student[6]);
-            //std::cout<<"'"<<name<<"'"<<street<<"'"<<city<<"'"<<state<<"'"<<zip<<"'"<<dob<<"'"<<id<<"'"<<std::endl;
             list.InsertNode(name, street, city, state, zip, dob, id);
+            //tree.InsertNode(name, street, city, state, zip, dob, id);
         }
         else  
             std::cout << "Error: Malformed line in file.\n";
@@ -57,25 +57,31 @@ int main(){
 
         //add student
         if(option == 1){
-            std::cout << "Student name: ";
-            std::cin.ignore();
-            std::getline(std::cin, name);
-            std::cout << "Student street: ";
-            std::getline(std::cin, street);
-            std::cout << "Student city: ";
-            std::getline(std::cin, city);
-            std::cout << "Student state: ";
-            std::getline(std::cin, state);
-            std::cout << "Student zipcode: ";
-            std::getline(std::cin, zip);
-            std::cout << "Student date of birth: ";
-            std::getline(std::cin, dob);
             std::cout << "Student ID: ";
             std::cin >> id;
+            bool found = list.InsertNodeHelper(id);
 
-            list.InsertNode(name, street, city, state, zip, dob, id);
-            //tree.InsertNode(name, address, dob, id);
-            system("clear");
+            if(!found){
+                std::cout << "Student name: ";
+                std::cin.ignore();
+                std::getline(std::cin, name);
+                std::cout << "Student street: ";
+                std::getline(std::cin, street);
+                std::cout << "Student city: ";
+                std::getline(std::cin, city);
+                std::cout << "Student state: ";
+                std::getline(std::cin, state);
+                std::cout << "Student zipcode: ";
+                std::getline(std::cin, zip);
+                std::cout << "Student date of birth: ";
+                std::getline(std::cin, dob);
+                list.InsertNode(name, street, city, state, zip, dob, id);
+                //tree.InsertNode(name, address, dob, id);
+            }
+            else if(found){
+                std::cout << RED_TEXT << "Student ID already exists." << WHITE_TEXT << "\n";
+            }
+            //system("clear");
         }
 
         else if(option == 2){
