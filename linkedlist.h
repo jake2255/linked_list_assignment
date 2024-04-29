@@ -32,6 +32,7 @@ class Linkedlist{
         Linkedlist();
         ~Linkedlist();
         void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, int);
+        bool InsertNodeHelper(int);
         void DeleteNode(std::string);
         bool SearchNode(std::string);
         void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
