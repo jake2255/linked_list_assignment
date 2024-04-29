@@ -4,7 +4,7 @@
 int main(){
 
     Linkedlist list;  //linked list object
-    //Binarytree tree;  //binary tree object
+    Binarytree tree;  //binary tree object
     int option = 0;   //menu selection
     std::string name, street, city, state, zip, dob; //student variables
     int id;
@@ -35,7 +35,7 @@ int main(){
             dob = student[5];
             id = std::stoi(student[6]);
             list.InsertNode(name, street, city, state, zip, dob, id);
-            //tree.InsertNode(name, street, city, state, zip, dob, id);
+            tree.InsertNode(name, street, city, state, zip, dob, id);
         }
         else  
             std::cout << "Error: Malformed line in file.\n";
@@ -49,7 +49,6 @@ int main(){
         std::cout << "Delete student [2]" << std::endl;
         std::cout << "Search student [3]" << std::endl;
         std::cout << "Update student [4]" << std::endl;
-        std::cout << "Display student [5]" << std::endl;
         std::cout << "Quit program [0]" << std::endl;
         std::cout << "->" << WHITE_TEXT;
         std::cin >> option;
@@ -59,9 +58,10 @@ int main(){
         if(option == 1){
             std::cout << "Student ID: ";
             std::cin >> id;
-            bool found = list.InsertNodeHelper(id);
+            bool foundList = list.SearchForId(id);
+            bool foundTree = tree.SearchForId(id);
 
-            if(!found){
+            if(!foundList && !foundTree){
                 std::cout << "Student name: ";
                 std::cin.ignore();
                 std::getline(std::cin, name);
@@ -76,12 +76,12 @@ int main(){
                 std::cout << "Student date of birth: ";
                 std::getline(std::cin, dob);
                 list.InsertNode(name, street, city, state, zip, dob, id);
-                //tree.InsertNode(name, address, dob, id);
+                tree.InsertNode(name, street, city, state, zip, dob, id);
             }
-            else if(found){
-                std::cout << RED_TEXT << "Student ID already exists." << WHITE_TEXT << "\n";
-            }
-            //system("clear");
+            if(foundList)
+                std::cout << RED_TEXT << "Student ID already exists in list." << WHITE_TEXT << "\n";
+            if(foundTree)
+                std::cout << RED_TEXT << "Student ID already exists in tree." << WHITE_TEXT << "\n";
         }
 
         else if(option == 2){
@@ -98,8 +98,8 @@ int main(){
             std::cout << "Name/ID of student to search: ";
             std::cin.ignore();
             std::getline(std::cin, studentToFind);
-            bool found = list.SearchNode(studentToFind);
-            //tree.SearchNode(studentToFind);
+            bool foundList = list.SearchNode(studentToFind);
+            bool foundTree = tree.SearchNode(studentToFind);
         }
 
         else if(option == 4){
@@ -126,12 +126,6 @@ int main(){
                 //tree.SearchNode(studentToFind);
             }
         }
-
-        else if(option == 5){
-            list.DisplayList();
-            //tree.DisplayList();
-        }
-        
     }while(option != 0);
 
     std::cout << "have a nice day" << std::endl;
