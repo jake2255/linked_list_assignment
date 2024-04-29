@@ -22,27 +22,25 @@ struct TreeNode{
     int s_id;
 
     TreeNode(std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id): 
-        s_name(name), s_street(street), s_city(city), s_state(state), s_zipcode(zip), s_dob(dob), s_id(id){}
+        s_name(name), s_street(street), s_city(city), s_state(state), s_zipcode(zip), s_dob(dob), s_id(id), left(NULL), right(NULL){}
 };
 
 class Binarytree{
     private:
         TreeNode* root;
-        // helper functions
-        void InsertHelper(TreeNode*& node, std::string, std::string, std::string, std::string, std::string, std::string, int);
-        TreeNode* DeleteHelper(TreeNode* node, std::string, std::string, std::string, std::string, std::string, std::string, int);
-        void InOrderTraversalHelper(TreeNode* node);
-        void PreOrderTraversalHelper(TreeNode* node);
-        void PostOrderTraversalHelper(TreeNode* node);
+        void InsertHelper(TreeNode*&, std::string, std::string, std::string, std::string, std::string, std::string, int);
+        void SearchForIdHelper(TreeNode*, int, bool&);
+        TreeNode* DeleteHelper(TreeNode*, std::string, std::string, std::string, std::string, std::string, std::string, int);
+        void SearchNodeHelper(TreeNode*, std::string, bool&);
 
     public:
         Binarytree();
         ~Binarytree();
         void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, int);
+        bool SearchForId(int);
         void DeleteNode(std::string);
         bool SearchNode(std::string);
-        void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
-        void DisplayTree();      
+        void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string); 
 };
 
 #endif
