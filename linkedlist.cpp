@@ -33,7 +33,7 @@ void Linkedlist::InsertNode(std::string name, std::string street, std::string ci
 }
 
 //checks if student id already exists, returns bool whether id is found
-bool Linkedlist::InsertNodeHelper(int id){
+bool Linkedlist::SearchForId(int id){
     Node* temp = head;
     while(temp != NULL){
         if(temp->s_id == id)
@@ -67,7 +67,7 @@ void Linkedlist::DeleteNode(std::string studentToDelete){
     }
 
     if(!studentExist)
-        std::cout << RED_TEXT << "Student doesnt exist." << WHITE_TEXT << std::endl;
+        std::cout << RED_TEXT << "Student doesnt exist in list." << WHITE_TEXT << std::endl;
 
     //deletes selected student when its head of list
     else if(current == head){
@@ -121,7 +121,7 @@ bool Linkedlist::SearchNode(std::string studentToFind){
         return true;
     }
     else{
-        std::cout << RED_TEXT << "Student not found." << WHITE_TEXT << std::endl;
+        std::cout << RED_TEXT << "Student not found in list." << WHITE_TEXT << std::endl;
         return false;
     }
 }
@@ -155,21 +155,5 @@ void Linkedlist::UpdateNode(std::string studentToUpdate, std::string name, std::
        temp->s_dob = dob;
     }
     else
-        std::cout << RED_TEXT << "Student not found." << WHITE_TEXT << std::endl;
-}
-
-//display all elements in linked list
-void Linkedlist::DisplayList(){
-    if(head == nullptr){
-        std::cout << RED_TEXT << "List empty." << WHITE_TEXT << std::endl;
-        return;
-    }
-
-    Node* temp = head;
-    //iterates through list displaying student names
-    std::cout << "Student List: " << std::endl;
-    while(temp){
-        std::cout << GREEN_TEXT << "Student|ID->" << WHITE_TEXT << temp->s_name << "|" << temp->s_id << std::endl;
-        temp = temp->next;
-    }
+        std::cout << RED_TEXT << "Student not found in list." << WHITE_TEXT << std::endl;
 }
