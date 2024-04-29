@@ -32,6 +32,18 @@ void Linkedlist::InsertNode(std::string name, std::string street, std::string ci
     }
 }
 
+//checks if student id already exists, returns bool whether id is found
+bool Linkedlist::InsertNodeHelper(int id){
+    Node* temp = head;
+    while(temp != NULL){
+        if(temp->s_id == id)
+            return true;
+        else
+            temp = temp->next;
+    }
+    return false;
+}
+
 //delete node selected by user
 void Linkedlist::DeleteNode(std::string studentToDelete){
     if(head == nullptr){
