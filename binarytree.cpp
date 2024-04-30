@@ -213,8 +213,63 @@ void Binarytree::SearchNodeHelper(TreeNode* node, std::string studentToFind, boo
 }
 
 
+void Binarytree::UpdateNode(int studentId, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip, std::string newDob){
+    if(root == nullptr){
+        std::cout << RED_TEXT << "The Tree is empty." << WHITE_TEXT << std::endl;
+        return;
+    }
 
-void Binarytree::UpdateNode(std::string studentToUpdate, std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob){
-    
+    UpdateNodeHelper(root, studentId, newName, newStreet, newCity, newState, newZip, newDob);
+}
+void Binarytree::UpdateNodeHelper(TreeNode* node, int studentId, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip, std::string newDob){
+
+    if(node != nullptr){
+        if(node->s_id == studentId){
+            // Display current information
+            std::cout << "Current information. " << std::endl;
+            std::cout << "Name: " << node->s_name << std::endl;
+            std::cout << "Street: " << node->s_street << std::endl;
+            std::cout << "City: " << node->s_city << std::endl;
+            std::cout << "State: " << node->s_state << std::endl;
+            std::cout << "Zipcode: " << node->s_zipcode << std::endl;
+            std::cout << "Date of Birth: " << node->s_dob << std::endl;
+            std::cout << "ID: " << node->s_id << std::endl;
+
+            //asking the user for updated information
+            std::cout << "Enter new information." << std::endl;
+            std::cout << "Name: ";
+            std::getline(std::cin, newName);
+            std::cout << "Street: ";
+            std::getline(std::cin, newStreet);
+            std::cout << "City: ";
+            std::getline(std::cin, newCity);
+            std::cout << "State: ";
+            std::getline(std::cin, newState);
+            std::cout << "Zipcode: ";
+            std::getline(std::cin, newZip);
+            std::cout << "Date of Birth: ";
+            std::getline(std::cin, newDob);
+
+            // Update each node's attributes
+            node->s_name = newName;
+            node->s_street = newStreet;
+            node->s_city = newCity;
+            node->s_state = newState;
+            node->s_zipcode = newZip;
+            node->s_dob = newDob;
+
+            std::cout << GREEN_TEXT << "Student record updated successfully." << WHITE_TEXT << std::endl;
+            return;
+        }
+        else if(studentId < node->s_id){
+            UpdateNodeHelper(node->left, studentId, newName, newStreet, newCity, newState, newZip, newDob);
+        }
+        else{
+            UpdateNodeHelper(node->right, studentId, newName, newStreet, newCity, newState, newZip, newDob);
+        }
+    }
+    else{
+        std::cout << RED_TEXT << "Student with ID of " << studentId << " not found in tree." << WHITE_TEXT << std::endl;
+    }
 }
 
