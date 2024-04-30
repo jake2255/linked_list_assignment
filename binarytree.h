@@ -33,7 +33,7 @@ class Binarytree{
         TreeNode* DeleteHelper(TreeNode*, int);
         void SearchNodeHelper(TreeNode*, std::string, bool&);
         TreeNode* MinMaxHelper(TreeNode*, int);
-
+        void UpdateNodeHelper(TreeNode*,int,std::string,std::string,std::string,std::string,std::string,std::string);
     public:
         Binarytree();
         ~Binarytree();
