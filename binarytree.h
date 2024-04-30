@@ -30,17 +30,19 @@ class Binarytree{
         TreeNode* root;
         void InsertHelper(TreeNode*&, std::string, std::string, std::string, std::string, std::string, std::string, int);
         void SearchForIdHelper(TreeNode*, int, bool&);
-        TreeNode* DeleteHelper(TreeNode*, std::string, std::string, std::string, std::string, std::string, std::string, int);
+        TreeNode* DeleteHelper(TreeNode*, int);
         void SearchNodeHelper(TreeNode*, std::string, bool&);
+        TreeNode* MinMaxHelper(TreeNode*, int);
 
     public:
         Binarytree();
         ~Binarytree();
         void InsertNode(std::string, std::string, std::string, std::string, std::string, std::string, int);
         bool SearchForId(int);
-        void DeleteNode(std::string);
+        void DeleteNode(int);
         bool SearchNode(std::string);
         void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string); 
+        
 };
 
 #endif

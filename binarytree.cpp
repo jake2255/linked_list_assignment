@@ -46,8 +46,136 @@ void Binarytree::SearchForIdHelper(TreeNode* node, int id, bool& idExist){
     }
 }
 
-void Binarytree::DeleteNode(std::string studentToDelete){}
-TreeNode* Binarytree::DeleteHelper(TreeNode* node, std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob, int id){return NULL;}
+//takes student ID from main menu and searches for the 
+void Binarytree::DeleteNode(int studentToDelete){
+    int delId = studentToDelete; //save id for passing to helper
+    TreeNode *deleteNode =  DeleteHelper(root, delId); //passes root and id to helper for first iteration
+    TreeNode *minMaxNode;
+    
+    TreeNode *tempLeft;
+    TreeNode *tempRight;
+
+    TreeNode *parentRight = deleteNode->right;
+    TreeNode *parentLeft = deleteNode->left;
+    
+
+    
+
+    
+
+    //checking that returned value isn't NULL, then swapping nodes
+    if(deleteNode != NULL){  
+        if(deleteNode->s_id > root->s_id){
+            //right side of tree
+          minMaxNode = MinMaxHelper(deleteNode, 2);
+
+        }
+        if(deleteNode->s_id < root->s_id){
+            //left side of tree
+            minMaxNode = MinMaxHelper(deleteNode, 1);
+            
+        }
+    }
+    
+
+    //node pointer swapping occurs here
+    
+    if(deleteNode->s_id > delId){
+        tempLeft = parentLeft->left;
+        tempRight = parentLeft->right;
+        delete(parentLeft);
+        deleteNode->left = minMaxNode;
+        minMaxNode->left = tempLeft;
+        minMaxNode->right = tempRight;
+        std::cout << "Student ID " << delId << " has been deleted" << std::endl;
+
+    }
+
+    if(deleteNode->s_id < delId){
+        tempLeft = parentRight->left;
+        tempRight = parentRight->right;
+        delete(parentRight);
+        deleteNode->right = minMaxNode;
+        minMaxNode->left = tempLeft;
+        minMaxNode->right = tempRight;
+        std::cout << "Student ID " << delId << " has been deleted" << std::endl;
+
+        
+    }
+
+
+    }
+
+
+
+
+TreeNode* Binarytree::DeleteHelper(TreeNode* node, int id){
+    TreeNode *dNode = node; //node passed to 
+    int delId = id;
+    
+    if(dNode->s_id == delId){ //checks if this node it the correct one
+        return dNode;
+    }
+
+
+    if(dNode->s_id != delId){
+        if(delId > dNode->s_id){
+            //right side
+            if(dNode->right->s_id == delId){
+                return node;
+            }
+           return DeleteHelper(dNode->right, delId); //checks right node if not correct node
+        }
+        else if(delId < dNode->s_id){
+            //left side
+            if(dNode->left->s_id == delId){
+                return node;
+            }
+            return DeleteHelper(dNode->left, delId); //checks left node if not correct node
+        }
+    }
+
+    
+    return NULL;
+    }
+
+
+//second helper method to find the node to swap for balancing of delete option.
+TreeNode* Binarytree::MinMaxHelper(TreeNode *node, int minMax){
+    TreeNode *childNodeHelper;
+    
+    //case for node to left of root
+    if(minMax == 1){
+        if(node->right == NULL){
+            childNodeHelper =  node;
+        }
+        else {
+            childNodeHelper = MinMaxHelper(node->right, 1);
+            if((childNodeHelper->left != NULL) && (childNodeHelper == node->right)){
+                node->right = childNodeHelper->left; 
+                
+            }
+        }
+    }
+
+    //case for node to right of root
+    if(minMax == 2){
+        if(node->left == NULL){
+            childNodeHelper =  node;
+        }
+        else {
+            childNodeHelper = MinMaxHelper(node->left, 2);
+            if((childNodeHelper->right != NULL) && (childNodeHelper == node->left)){
+                node->left = childNodeHelper->right;
+        }
+    }
+
+
+
+    }
+    return childNodeHelper;
+};
+
 
 //finds and displays a selected node
 bool Binarytree::SearchNode(std::string studentToFind){
@@ -84,5 +212,9 @@ void Binarytree::SearchNodeHelper(TreeNode* node, std::string studentToFind, boo
     }
 }
 
-void Binarytree::UpdateNode(std::string studentToUpdate, std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob){}
+
+
+void Binarytree::UpdateNode(std::string studentToUpdate, std::string name, std::string street, std::string city, std::string state, std::string zip, std::string dob){
+    
+}
 

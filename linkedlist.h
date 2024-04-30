@@ -37,6 +37,7 @@ class Linkedlist{
         bool SearchNode(std::string);
         void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string);
         void DisplayList();    
+        bool SearchForId(int);
 };
 
 #endif

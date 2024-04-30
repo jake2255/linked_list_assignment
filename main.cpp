@@ -90,7 +90,7 @@ int main(){
             std::cin.ignore();
             std::getline(std::cin, studentToDelete);
             list.DeleteNode(studentToDelete);
-            //tree.DeleteNode(studentToDelete);
+            //tree.DeleteNode(stoi(studentToDelete));
         }
 
         else if(option == 3){
