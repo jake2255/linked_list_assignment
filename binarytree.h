@@ -41,7 +41,7 @@ class Binarytree{
         bool SearchForId(int);
         void DeleteNode(int);
         bool SearchNode(std::string);
-        void UpdateNode(std::string, std::string, std::string, std::string, std::string, std::string, std::string); 
+        void UpdateNode(int, std::string, std::string, std::string, std::string, std::string, std::string); 
         
 };
 

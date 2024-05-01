@@ -90,7 +90,7 @@ int main(){
             std::cin.ignore();
             std::getline(std::cin, studentToDelete);
             list.DeleteNode(studentToDelete);
-            //tree.DeleteNode(stoi(studentToDelete));
+            tree.DeleteNode(stoi(studentToDelete));
         }
 
         else if(option == 3){
@@ -123,7 +123,7 @@ int main(){
                 std::cout << "Updated student date of birth: ";
                 std::getline(std::cin, dob);
                 list.UpdateNode(studentToUpdate, name, street, city, state, zip, dob);
-                //tree.SearchNode(studentToFind);
+                tree.UpdateNode(stoi(studentToUpdate), name, street, city, state, zip, dob);
             }
         }
     }while(option != 0);
