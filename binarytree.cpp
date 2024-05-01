@@ -235,21 +235,7 @@ void Binarytree::UpdateNodeHelper(TreeNode* node, int studentId, std::string new
             std::cout << "Date of Birth: " << node->s_dob << std::endl;
             std::cout << "ID: " << node->s_id << std::endl;
 
-            //asking the user for updated information
-            std::cout << "Enter new information." << std::endl;
-            std::cout << "Name: ";
-            std::getline(std::cin, newName);
-            std::cout << "Street: ";
-            std::getline(std::cin, newStreet);
-            std::cout << "City: ";
-            std::getline(std::cin, newCity);
-            std::cout << "State: ";
-            std::getline(std::cin, newState);
-            std::cout << "Zipcode: ";
-            std::getline(std::cin, newZip);
-            std::cout << "Date of Birth: ";
-            std::getline(std::cin, newDob);
-
+           
             // Update each node's attributes
             node->s_name = newName;
             node->s_street = newStreet;
